@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixly - Your Toolkit for Everything Digital</title>
+    <meta name="description" content="Fixly offers a comprehensive suite of free online tools for PDF manipulation, format conversion, data validation, encoding/decoding, and more.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Dark Theme Variables */
+            --dark-bg: #1E1E2F;
+            --dark-header: #2B2D42;
+            --dark-text: #EAEAEA;
+            --dark-card: #2A2A3F;
+            --dark-hover: #35354A;
+            --accent: #FFD700;
+            --shadow: rgba(0, 0, 0, 0.2);
+            
+            /* Light Theme Variables */
+            --light-bg: #F5F5F5;
+            --light-header: #FFFFFF;
+            --light-text: #1E1E2F;
+            --light-card: #FFFFFF;
+            --light-hover: #F0F0F0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--dark-header);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        body.light-mode header {
+            background-color: var(--light-header);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border-radius: 50px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--dark-text);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body.light-mode .search-container input {
+            background-color: rgba(0, 0, 0, 0.05);
+            color: var(--light-text);
+        }
+        
+        .search-container i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: #1E1E2F;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e6c300;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: #1E1E2F;
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--dark-text);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        body.light-mode .theme-toggle {
+            color: var(--light-text);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #2B2D42 0%, #1E1E2F 100%);
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 2rem;
+        }
+        
+        body.light-mode .hero {
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        /* Categories */
+        .categories {
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 80px;
+            z-index: 900;
+            background-color: var(--dark-bg);
+        }
+        
+        body.light-mode .categories {
+            background-color: var(--light-bg);
+        }
+        
+        .category-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            border: none;
+            background-color: var(--dark-card);
+            color: var(--dark-text);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        body.light-mode .category-btn {
+            background-color: var(--light-card);
+            color: var(--light-text);
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--accent);
+            color: #1E1E2F;
+        }
+        
+        /* Tools Grid */
+        .tools-container {
+            padding: 0 2rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .category-title {
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tool-card {
+            background-color: var(--dark-card);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+        
+        body.light-mode .tool-card {
+            background-color: var(--light-card);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+            background-color: var(--dark-hover);
+        }
+        
+        body.light-mode .tool-card:hover {
+            background-color: var(--light-hover);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .tool-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .tool-card p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        /* Useful Links Section */
+        .useful-links {
+            padding: 2rem;
+            background-color: var(--dark-header);
+            border-radius: 20px;
+            margin: 2rem;
+        }
+        
+        body.light-mode .useful-links {
+            background-color: var(--light-header);
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        body.light-mode .link-item {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .link-item:hover {
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+        
+        .link-item i {
+            color: var(--accent);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-header);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        body.light-mode footer {
+            background-color: var(--light-header);
+        }
+        
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .footer-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        body.light-mode .footer-links a {
+            color: var(--light-text);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Feedback Button */
+        .feedback-btn {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background-color: var(--accent);
+            color: #1E1E2F;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px var(--shadow);
+            z-index: 999;
+            font-size: 1.2rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent);
+            color: #1E1E2F;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px var(--shadow);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: var(--dark-card);
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+        
+        body.light-mode .modal-content {
+            background-color: var(--light-card);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-text);
+        }
+        
+        body.light-mode .close-modal {
+            color: var(--light-text);
+        }
+        
+        .coffee-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .coffee-option {
+            padding: 1rem;
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .coffee-option:hover {
+            background-color: var(--accent);
+            color: #1E1E2F;
+        }
+        
+        .coffee-option.selected {
+            background-color: var(--accent);
+            color: #1E1E2F;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header-controls {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-end;
+            }
+            
+            .search-container {
+                width: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .header-controls {
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .search-container {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .categories {
+                padding: 1rem;
+                top: 140px;
+            }
+            
+            .tools-container {
+                padding: 0 1rem 3rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .coffee-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-tools"></i>
+            <span>Fixly</span>
+        </div>
+        
+        <div class="header-controls">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search tools...">
+            </div>
+            
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <button class="btn btn-outline" id="coffee-btn">
+                <i class="fas fa-coffee"></i> Buy Me a Coffee
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Your Toolkit for Everything Digital</h1>
+        <p>Fixly offers a comprehensive suite of free online tools to simplify your digital tasks. From PDF manipulation to data conversion, we've got you covered.</p>
+        <button class="btn btn-primary">Explore All Tools</button>
+    </section>
+
+    <!-- Category Filters -->
+    <div class="categories">
+        <button class="category-btn active" data-category="all">All Tools</button>
+        <button class="category-btn" data-category="pdf">PDF Tools</button>
+        <button class="category-btn" data-category="converters">Converters</button>
+        <button class="category-btn" data-category="formatters">Formatters</button>
+        <button class="category-btn" data-category="validators">Validators</button>
+        <button class="category-btn" data-category="web">Web & SEO</button>
+        <button class="category-btn" data-category="productivity">Productivity</button>
+        <button class="category-btn" data-category="encoders">Encoders/Decoders</button>
+        <button class="category-btn" data-category="design">Design</button>
+        <button class="category-btn" data-category="calculators">Calculators</button>
+    </div>
+
+    <!-- Tools Grid -->
+    <main class="tools-container">
+        <!-- PDF Tools -->
+        <div class="category-section" data-category="pdf">
+            <h2 class="category-title">
+                <i class="fas fa-file-pdf"></i>
+                PDF Tools
+            </h2>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Camera to PDF</h3>
+                    <p>Convert photos taken with a camera into a single PDF document.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>Edit PDF</h3>
+                    <p>Allows users to edit text and images within a PDF file.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-object-group"></i>
+                    </div>
+                    <h3>Merge PDF</h3>
+                    <p>Combines multiple PDF files into one single document.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-compress-alt"></i>
+                    </div>
+                    <h3>Compress PDF</h3>
+                    <p>Reduces the file size of a PDF without significantly compromising quality.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>URL to PDF</h3>
+                    <p>Converts a live web page into a downloadable PDF document.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>Split PDF</h3>
+                    <p>Divides a single PDF document into multiple smaller files.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Protect PDF</h3>
+                    <p>Adds a password and encryption to a PDF to secure it.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-unlock"></i>
+                    </div>
+                    <h3>Unlock PDF</h3>
+                    <p>Removes password protection from a PDF document.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-file-image"></i>
+                    </div>
+                    <h3>PDF to JPG</h3>
+                    <p>Converts a PDF document into a series of JPG images.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>View PDF</h3>
+                    <p>A simple online viewer for opening and reading PDF files.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Converters -->
+        <div class="category-section" data-category="converters">
+            <h2 class="category-title">
+                <i class="fas fa-exchange-alt"></i>
+                Converters
+            </h2>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-superscript"></i>
+                    </div>
+                    <h3>Base Converter</h3>
+                    <p>Converts numbers between different bases (e.g., decimal, binary, hexadecimal).</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <h3>Unit Converter</h3>
+                    <p>Converts between various units of measurement (e.g., length, weight, temperature).</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <h3>EXCEL to PDF</h3>
+                    <p>Converts a spreadsheet from an Excel file into a PDF document.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>JSON to YAML</h3>
+                    <p>Transforms a data file from JSON format into YAML.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>YAML to JSON</h3>
+                    <p>Transforms a data file from YAML format into JSON.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>JSON to XML</h3>
+                    <p>Transforms a data file from JSON format into XML.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-file-csv"></i>
+                    </div>
+                    <h3>XML to CSV</h3>
+                    <p>Converts a data file from XML format into a comma-separated values file.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>CSV to XML</h3>
+                    <p>Converts a data file from a CSV file into XML format.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-font"></i>
+                    </div>
+                    <h3>ASCII Hex</h3>
+                    <p>Converts text into ASCII hexadecimal codes and vice versa.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Date Converter</h3>
+                    <p>Converts dates between different formats and time zones.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <h3>JDE Julian Converter</h3>
+                    <p>Converts between Julian calendar dates and standard calendar dates.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Epoch Time Converter</h3>
+                    <p>Converts between human-readable time and Epoch time (Unix timestamp).</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional tool categories would follow the same pattern -->
+        <!-- For brevity, I'll include just a couple more sections -->
+        
+        <!-- Formatters -->
+        <div class="category-section" data-category="formatters">
+            <h2 class="category-title">
+                <i class="fas fa-indent"></i>
+                Formatters
+            </h2>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>XML Formatter</h3>
+                    <p>Beautifies and indents messy XML code for readability.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-brackets-curly"></i>
+                    </div>
+                    <h3>JSON Formatter</h3>
+                    <p>Indents and formats raw JSON data into a clean, readable structure.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>SQL Formatter</h3>
+                    <p>Formats SQL queries for better readability.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>HTML Formatter</h3>
+                    <p>Cleans up and indents HTML code.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Validators -->
+        <div class="category-section" data-category="validators">
+            <h2 class="category-title">
+                <i class="fas fa-check-circle"></i>
+                Validators
+            </h2>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-check-square"></i>
+                    </div>
+                    <h3>XML XSD Validator</h3>
+                    <p>Checks XML code against an XML Schema Definition (XSD) for validity.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3>HTML Validator</h3>
+                    <p>Checks HTML code for errors and conformance to standards.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h3>JSON Validator</h3>
+                    <p>Ensures that JSON data is syntactically correct.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>YAML Validator</h3>
+                    <p>Checks YAML code for syntax errors.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional sections would follow the same pattern -->
+        
+    </main>
+
+    <!-- Useful Links Section -->
+    <section class="useful-links">
+        <h2 class="category-title">
+            <i class="fas fa-link"></i>
+            Useful Links
+        </h2>
+        
+        <div class="links-grid">
+            <a href="#" class="link-item">
+                <i class="fab fa-libreoffice"></i>
+                <span>LibreOffice</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-project-diagram"></i>
+                <span>AppFlowy</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-cubes"></i>
+                <span>ERPNext</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-database"></i>
+                <span>NocoDB</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-server"></i>
+                <span>Convex</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Appwrite</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-fire"></i>
+                <span>Supabase</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-cloud"></i>
+                <span>PocketBase</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-bolt"></i>
+                <span>Instant</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-comments"></i>
+                <span>Mattermost</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-video"></i>
+                <span>Jitsi Meet</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-tasks"></i>
+                <span>Plane</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Coolify</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-server"></i>
+                <span>Dokku</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-film"></i>
+                <span>DaVinci Resolve</span>
+            </a>
+            
+            <a href="#" class="link-item">
+                <i class="fas fa-paint-brush"></i>
+                <span>Krita</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fas fa-tools"></i>
+                <span>Fixly</span>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="mailto:fixly07@gmail.com">Contact</a>
+            </div>
+            
+            <button class="btn btn-outline" id="footer-coffee-btn">
+                <i class="fas fa-coffee"></i> Buy Me a Coffee
+            </button>
+            
+            <p class="copyright">© 2023 Fixly. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Feedback Button -->
+    <div class="feedback-btn" id="feedback-btn">
+        <i class="fas fa-comment"></i>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Coffee Modal -->
+    <div class="modal" id="coffee-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Buy Me a Coffee</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <p>If you find these tools helpful, consider buying me a coffee to support the development of more free tools!</p>
+            
+            <div class="coffee-options">
+                <div class="coffee-option" data-amount="3">☕ x1</div>
+                <div class="coffee-option" data-amount="5">☕ x3</div>
+                <div class="coffee-option" data-amount="10">☕ x5</div>
+            </div>
+            
+            <textarea placeholder="Leave a message (optional)" rows="3"></textarea>
+            
+            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Donate</button>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div class="modal" id="feedback-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Send Feedback</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <p>We'd love to hear your thoughts, suggestions, or issues.</p>
+            
+            <form>
+                <div style="margin-bottom: 1rem;">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Your email" style="width: 100%; padding: 0.8rem; border-radius: 5px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label for="message">Message</label>
+                    <textarea id="message" placeholder="Your feedback" rows="4" style="width: 100%; padding: 0.8rem; border-radius: 5px; border: 1px solid #ccc; margin-top: 0.5rem;"></textarea>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%;">Send Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme Toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('light-mode');
+                
+                if (document.body.classList.contains('light-mode')) {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            });
+            
+            // Category Filtering
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const categorySections = document.querySelectorAll('.category-section');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    
+                   
