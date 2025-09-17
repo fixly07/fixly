@@ -1,76 +1,57 @@
-<div class="tool-card-pro">
-    <div class="card-icon-container">
-        <svg class="tool-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+<div class="tool-card-new">
+    <div class="icon-bg">
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-6h-2v6zm0-8h2V7h-2v2z" fill="#FFFFFF"/>
         </svg>
     </div>
-    <div class="card-content">
-        <h3>Image Compressor</h3>
-        <p>Reduce file size without losing quality.</p>
-    </div>
-    <div class="card-arrow">
-        <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    <div class="tool-info">
+        <h3>PDF Tools</h3>
+        <p>A suite of tools for all your PDF needs.</p>
     </div>
 </div>
 
 <style>
-    /* --- Styles for a single, enhanced card --- */
-    .tool-card-pro {
+    /* New Tool Card Styles */
+    .tool-card-new {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
-        padding: 1.5rem;
-        background-color: #f8f9fa;
-        border-radius: 12px;
-        border: 1px solid #e9ecef;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        gap: 1rem;
+        padding: 1.2rem;
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
         cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
-    .tool-card-pro:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    .tool-card-new:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
-
-    .card-icon-container {
+    .icon-bg {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        background-color: #5EC2B7; /* Playful green accent */
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 64px;
-        height: 64px;
-        background: linear-gradient(135deg, #FFD700, #E6C200);
-        border-radius: 50%;
-        transition: background 0.3s ease;
+        flex-shrink: 0;
     }
-
-    .tool-icon {
-        width: 32px;
-        height: 32px;
-        color: #141414;
+    .icon-svg {
+        width: 28px;
+        height: 28px;
     }
-
-    .card-content h3 {
-        font-size: 1.25rem;
+    .tool-info h3 {
+        font-family: 'Quicksand', sans-serif;
+        font-size: 1.2rem;
         font-weight: 600;
-        color: #141414;
+        color: #2C3E50;
+        margin: 0;
     }
-
-    .card-content p {
-        font-size: 0.95rem;
-        color: #6c757d;
-        margin-top: 0.25rem;
+    .tool-info p {
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        margin: 0;
     }
-
-    .card-arrow {
-        margin-left: auto;
-        font-size: 1.5rem;
-        color: #adb5bd;
-    }
-
-    .tool-card-pro:hover .card-arrow {
-        color: #141414;
-        transform: translateX(5px);
-    }
-
 </style>
