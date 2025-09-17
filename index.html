@@ -1,536 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixly - Your Toolkit for Everything Digital</title>
-    <meta name="description" content="Fixly offers a wide range of free online tools for PDF, image, converters, and more. Your one-stop hub for productivity.">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Fixly",
-      "applicationCategory": "Productivity",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-    </script>
-    
-    <style>
-        /* CSS Variables for easy theme switching */
-        :root {
-            --dark-navy: #1E1E2F;
-            --deep-blue: #2B2D42;
-            --light-gray: #EAEAEA;
-            --gold-accent: #FFD700;
-            --gold-hover: #E6C200;
-            --tool-card-bg: #3A3D5B;
-        }
-        
-        /* Light Theme */
-        body.light-mode {
-            background-color: #F5F5F5;
-            color: var(--dark-navy);
-        }
-        body.light-mode .header {
-            background-color: #E0E0E0;
-            color: var(--dark-navy);
-        }
-        body.light-mode .tool-card {
-            background-color: #FFFFFF;
-            color: var(--dark-navy);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        body.light-mode .tool-card:hover {
-            background-color: var(--gold-accent);
-            color: var(--dark-navy);
-        }
-        body.light-mode .buy-coffee-btn,
-        body.light-mode .btn {
-            background-color: var(--gold-accent);
-            color: var(--dark-navy);
-        }
-
-        /* --- General Styles --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        body {
-            background-color: var(--dark-navy);
-            color: var(--light-gray);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* --- Header --- */
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--deep-blue);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .header .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--gold-accent);
-            text-decoration: none;
-            padding-left: 20px;
-        }
-
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding-right: 20px;
-        }
-
-        #search-bar {
-            padding: 10px 15px;
-            border-radius: 25px;
-            border: 1px solid var(--tool-card-bg);
-            background: var(--tool-card-bg);
-            color: var(--light-gray);
-            width: 250px;
-        }
-        #search-bar::placeholder {
-            color: #A0A0A0;
-        }
-
-        .theme-toggle {
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-        .theme-toggle:hover {
-            color: var(--gold-accent);
-        }
-
-        .buy-coffee-btn {
-            background: var(--gold-accent);
-            color: var(--dark-navy);
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .buy-coffee-btn:hover {
-            background: var(--gold-hover);
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-        }
-        .hero h1 {
-            font-size: 3rem;
-            color: var(--light-gray);
-            margin-bottom: 10px;
-        }
-        .hero .accent-text {
-            color: var(--gold-accent);
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #A0A0A0;
-            max-width: 600px;
-            margin: 0 auto 20px;
-        }
-
-        /* --- Tool Sections --- */
-        .tool-category-links {
-            text-align: center;
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .category-link {
-            background: var(--tool-card-bg);
-            color: var(--light-gray);
-            padding: 8px 15px;
-            border-radius: 20px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .category-link:hover, .category-link.active {
-            background: var(--gold-accent);
-            color: var(--dark-navy);
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding-bottom: 50px;
-        }
-
-        .tool-section h2 {
-            font-size: 2rem;
-            margin: 40px 0 20px;
-            text-align: left;
-            border-bottom: 2px solid var(--tool-card-bg);
-            padding-bottom: 10px;
-        }
-        .tool-section h2 .section-icon {
-            font-size: 1.5rem;
-            margin-left: 10px;
-        }
-
-        .tool-card {
-            background: var(--tool-card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-            text-align: left;
-            cursor: pointer;
-            position: relative;
-        }
-        .tool-card:hover {
-            background: var(--gold-accent);
-            color: var(--dark-navy);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(255, 215, 0, 0.4);
-        }
-
-        .tool-card .tool-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        .tool-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-        .tool-card p {
-            font-size: 0.9rem;
-            color: #A0A0A0;
-        }
-        .tool-card:hover p {
-            color: var(--dark-navy);
-        }
-
-        .tool-card .new-tag, .tool-card .popular-tag {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #4CAF50;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-        .tool-card .popular-tag {
-            background: #FF5722;
-        }
-        
-        /* --- Modals and Overlays --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1001;
-        }
-        .modal-content {
-            background: var(--tool-card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            position: relative;
-        }
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* --- Footer --- */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background: var(--deep-blue);
-            margin-top: 40px;
-        }
-        .footer a {
-            color: var(--gold-accent);
-            text-decoration: none;
-        }
-
-        /* --- Back to Top Button --- */
-        #back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--gold-accent);
-            color: var(--dark-navy);
-            padding: 10px 15px;
-            border-radius: 50%;
-            display: none;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 999;
-        }
-
-        /* --- Responsive Design --- */
-        @media (max-width: 768px) {
-            .header {
-                justify-content: center;
-                text-align: center;
-            }
-            .header-controls {
-                margin-top: 10px;
-                justify-content: center;
-                width: 100%;
-            }
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-            .tool-section h2 {
-                text-align: center;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header class="header">
-        <a href="#" class="logo">Fixly</a>
-        <div class="header-controls">
-            <input type="text" id="search-bar" placeholder="Search tools...">
-            <span class="theme-toggle" id="theme-toggle">☀️</span>
-            <a href="#" class="buy-coffee-btn" id="buy-coffee-btn">Buy Me a Coffee</a>
-        </div>
-    </header>
-
-    <main class="container">
-        <section class="hero">
-            <h1><span class="accent-text">Fixly</span>: Your Toolkit for Everything Digital</h1>
-            <p>A comprehensive collection of free online tools to boost productivity and simplify your workflow. No downloads, no subscriptions.</p>
-        </section>
-
-        <section class="tool-category-links">
-            <a href="#pdf-tools" class="category-link">PDF Tools</a>
-            <a href="#converters" class="category-link">Converters</a>
-            <a href="#formatters" class="category-link">Formatters</a>
-            <a href="#validators" class="category-link">Validators</a>
-            <a href="#web-seo" class="category-link">Web & SEO</a>
-            <a href="#productivity" class="category-link">Productivity</a>
-            <a href="#encoders-decoders" class="category-link">Encoders / Decoders</a>
-            <a href="#design" class="category-link">Design</a>
-            <a href="#calculators" class="category-link">Calculators</a>
-        </section>
-
-        <section class="tool-section" id="pdf-tools">
-            <h2>PDF Tools <span class="section-icon">📄</span></h2>
-            <div class="tools-grid">
-                <div class="tool-card" data-tool="Camera to PDF">
-                    <span class="tool-icon">📸</span>
-                    <h3>Camera to PDF</h3>
-                    <p>Convert photos into a single PDF document.</p>
-                </div>
-                <div class="tool-card" data-tool="Edit PDF">
-                    <span class="tool-icon">✏️</span>
-                    <h3>Edit PDF</h3>
-                    <p>Modify text and images within a PDF file.</p>
-                </div>
-                <div class="tool-card" data-tool="Merge PDF">
-                    <span class="tool-icon">🔗</span>
-                    <h3>Merge PDF</h3>
-                    <p>Combine multiple PDF files into one.</p>
-                </div>
-                <div class="tool-card" data-tool="Compress PDF">
-                    <span class="tool-icon">🗜️</span>
-                    <h3>Compress PDF</h3>
-                    <p>Reduce the file size of your PDFs.</p>
-                </div>
-                <div class="tool-card" data-tool="URL to PDF">
-                    <span class="tool-icon">🌐</span>
-                    <h3>URL to PDF</h3>
-                    <p>Convert a live web page into a PDF document.</p>
-                </div>
-                <div class="tool-card" data-tool="Split PDF">
-                    <span class="tool-icon">✂️</span>
-                    <h3>Split PDF</h3>
-                    <p>Divide a PDF into multiple smaller files.</p>
-                </div>
-                <div class="tool-card" data-tool="Protect PDF">
-                    <span class="tool-icon">🔒</span>
-                    <h3>Protect PDF</h3>
-                    <p>Add password protection to a PDF.</p>
-                </div>
-                <div class="tool-card" data-tool="Unlock PDF">
-                    <span class="tool-icon">🔓</span>
-                    <h3>Unlock PDF</h3>
-                    <p>Remove password protection from a PDF.</p>
-                </div>
-                <div class="tool-card" data-tool="PDF to JPG">
-                    <span class="tool-icon">🖼️</span>
-                    <h3>PDF to JPG</h3>
-                    <p>Convert a PDF document into a JPG image.</p>
-                </div>
-                <div class="tool-card" data-tool="View PDF">
-                    <span class="tool-icon">👀</span>
-                    <h3>View PDF</h3>
-                    <p>Read and view PDF files online.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="tool-section" id="converters">
-            <h2>Converters <span class="section-icon">🔄</span></h2>
-            <div class="tools-grid">
-                <div class="tool-card" data-tool="Base Converter">
-                    <span class="tool-icon">🔢</span>
-                    <h3>Base Converter</h3>
-                    <p>Convert numbers between different bases.</p>
-                </div>
-                <div class="tool-card" data-tool="Unit Converter">
-                    <span class="tool-icon">📏</span>
-                    <h3>Unit Converter</h3>
-                    <p>Convert between various units of measurement.</p>
-                </div>
-                </div>
-        </section>
-
-        <section class="tool-section" id="formatters">
-            <h2>Formatters <span class="section-icon">🗂️</span></h2>
-            <div class="tools-grid">
-                <div class="tool-card" data-tool="XML Formatter">
-                    <span class="tool-icon">🗂️</span>
-                    <h3>XML Formatter</h3>
-                    <p>Beautify and indent messy XML code.</p>
-                </div>
-                 </div>
-        </section>
-        
-        </main>
-
-    <footer class="footer">
-        <p>Built with ❤️ for a better web. © 2025 Fixly.</p>
-        <p>Contact us at <a href="mailto:fixly07@gmail.com">fixly07@gmail.com</a></p>
-    </footer>
-
-    <button id="back-to-top" title="Back to Top">↑</button>
-
-    <div class="modal-overlay" id="coffee-modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3>Buy Me a Coffee</h3>
-            <p>Your support helps keep Fixly running smoothly and ad-free.</p>
-            </div>
+<div class="tool-card-pro">
+    <div class="card-icon-container">
+        <svg class="tool-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
     </div>
+    <div class="card-content">
+        <h3>Image Compressor</h3>
+        <p>Reduce file size without losing quality.</p>
+    </div>
+    <div class="card-arrow">
+        <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </div>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const body = document.body;
-            const themeToggle = document.getElementById('theme-toggle');
-            const searchBar = document.getElementById('search-bar');
-            const toolCards = document.querySelectorAll('.tool-card');
-            const backToTopBtn = document.getElementById('back-to-top');
-            const categoryLinks = document.querySelectorAll('.category-link');
-            const toolSections = document.querySelectorAll('.tool-section');
-            const coffeeBtn = document.getElementById('buy-coffee-btn');
-            const coffeeModal = document.getElementById('coffee-modal');
-            const closeModalBtn = coffeeModal.querySelector('.close-btn');
+<style>
+    /* --- Styles for a single, enhanced card --- */
+    .tool-card-pro {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-            // --- Theme Toggle ---
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
-                themeToggle.textContent = body.classList.contains('light-mode') ? '🌙' : '☀️';
-            });
+    .tool-card-pro:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
 
-            // --- Live Search ---
-            searchBar.addEventListener('keyup', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                toolCards.forEach(card => {
-                    const toolName = card.dataset.tool.toLowerCase();
-                    if (toolName.includes(searchTerm)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
+    .card-icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, #FFD700, #E6C200);
+        border-radius: 50%;
+        transition: background 0.3s ease;
+    }
 
-            // --- Back to Top Button ---
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTopBtn.style.display = 'block';
-                } else {
-                    backToTopBtn.style.display = 'none';
-                }
-            });
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+    .tool-icon {
+        width: 32px;
+        height: 32px;
+        color: #141414;
+    }
 
-            // --- Category Filtering ---
-            categoryLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = e.target.getAttribute('href').substring(1);
-                    toolSections.forEach(section => {
-                        if (section.id === targetId) {
-                            section.style.display = 'block';
-                        } else {
-                            section.style.display = 'none';
-                        }
-                    });
-                    categoryLinks.forEach(btn => btn.classList.remove('active'));
-                    e.target.classList.add('active');
-                });
-            });
+    .card-content h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #141414;
+    }
 
-            // --- Modal Functionality ---
-            coffeeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                coffeeModal.style.display = 'flex';
-            });
-            closeModalBtn.addEventListener('click', () => {
-                coffeeModal.style.display = 'none';
-            });
-            window.addEventListener('click', (e) => {
-                if (e.target === coffeeModal) {
-                    coffeeModal.style.display = 'none';
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+    .card-content p {
+        font-size: 0.95rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+
+    .card-arrow {
+        margin-left: auto;
+        font-size: 1.5rem;
+        color: #adb5bd;
+    }
+
+    .tool-card-pro:hover .card-arrow {
+        color: #141414;
+        transform: translateX(5px);
+    }
+
+</style>
