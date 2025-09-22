@@ -1,57 +1,632 @@
-<div class="tool-card-new">
-    <div class="icon-bg">
-        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-6h-2v6zm0-8h2V7h-2v2z" fill="#FFFFFF"/>
-        </svg>
-    </div>
-    <div class="tool-info">
-        <h3>PDF Tools</h3>
-        <p>A suite of tools for all your PDF needs.</p>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixly - Your Modern Tool Hub</title>
 
-<style>
-    /* New Tool Card Styles */
-    .tool-card-new {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1.2rem;
-        background-color: #FFFFFF;
-        border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
-        cursor: pointer;
-    }
-    .tool-card-new:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    }
-    .icon-bg {
-        width: 56px;
-        height: 56px;
-        border-radius: 12px;
-        background-color: #5EC2B7; /* Playful green accent */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-shrink: 0;
-    }
-    .icon-svg {
-        width: 28px;
-        height: 28px;
-    }
-    .tool-info h3 {
-        font-family: 'Quicksand', sans-serif;
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #2C3E50;
-        margin: 0;
-    }
-    .tool-info p {
-        font-family: 'Roboto', sans-serif;
-        font-size: 0.9rem;
-        color: #7f8c8d;
-        margin: 0;
-    }
-</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        /* --- CSS Variables for Easy Theming --- */
+        :root {
+            --light-bg: #F0F4F8;
+            --light-card-bg: #FFFFFF;
+            --light-text-color: #2C3E50;
+            --light-secondary-text: #7f8c8d;
+            --light-border: #E5E9EC;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+
+            --dark-bg: #141D26;
+            --dark-card-bg: #222E3A;
+            --dark-text-color: #F8F9FA;
+            --dark-secondary-text: #B0B0B0;
+            --dark-border: #495057;
+            --dark-shadow-color: rgba(0, 0, 0, 0.3);
+
+            --accent-yellow: #F9B500;
+            --accent-green: #5EC2B7;
+            --accent-blue: #3498DB;
+        }
+
+        /* --- Base Styles --- */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text-color);
+            margin: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text-color);
+        }
+
+        /* --- Global Container --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- Header & Navigation --- */
+        .nav-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--light-bg);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        body.dark-mode .nav-bar {
+            background-color: var(--dark-bg);
+            box-shadow: 0 2px 10px var(--dark-shadow-color);
+        }
+        .nav-logo {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light-text-color);
+            text-decoration: none;
+        }
+        body.dark-mode .nav-logo {
+            color: var(--dark-text-color);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .search-bar {
+            position: relative;
+        }
+        .search-bar input {
+            padding: 10px 40px 10px 20px;
+            border-radius: 25px;
+            border: 1px solid var(--light-border);
+            background-color: var(--light-card-bg);
+            color: var(--light-text-color);
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+        body.dark-mode .search-bar input {
+            background-color: var(--dark-card-bg);
+            color: var(--dark-text-color);
+            border-color: var(--dark-border);
+        }
+        .search-bar .material-icons {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-secondary-text);
+            pointer-events: none;
+        }
+        body.dark-mode .search-bar .material-icons {
+            color: var(--dark-secondary-text);
+        }
+
+        .buy-coffee-btn, .theme-toggle {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .buy-coffee-btn {
+            background-color: var(--accent-yellow);
+            color: #000;
+        }
+        .buy-coffee-btn:hover {
+            transform: scale(1.05);
+        }
+        .theme-toggle {
+            background-color: var(--light-card-bg);
+            color: var(--light-text-color);
+            border: 1px solid var(--light-border);
+        }
+        body.dark-mode .theme-toggle {
+            background-color: var(--dark-card-bg);
+            color: var(--dark-text-color);
+            border: 1px solid var(--dark-border);
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .hero-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-secondary-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        body.dark-mode .hero-subtitle {
+            color: var(--dark-secondary-text);
+        }
+
+        /* --- Tool Sections --- */
+        .tools-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 40px 0 20px;
+        }
+        .tools-heading h2 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--light-text-color);
+        }
+        body.dark-mode .tools-heading h2 {
+            color: var(--dark-text-color);
+        }
+
+        .tool-container {
+            background-color: var(--light-card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        body.dark-mode .tool-container {
+            background-color: var(--dark-card-bg);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .tool-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background-color: var(--light-bg);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        body.dark-mode .tool-card {
+            background-color: var(--dark-bg);
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        body.dark-mode .tool-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+        .tool-card h3 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--light-text-color);
+        }
+        body.dark-mode .tool-card h3 {
+            color: var(--dark-text-color);
+        }
+
+        /* --- Dynamic Icon Colors --- */
+        #pdf-tools-section .tool-icon-container { background-color: var(--accent-blue); }
+        #converters-section .tool-icon-container { background-color: var(--accent-green); }
+        #formatters-section .tool-icon-container { background-color: var(--accent-yellow); }
+        #validators-section .tool-icon-container { background-color: #E74C3C; }
+        #web-seo-section .tool-icon-container { background-color: #9B59B6; }
+        #productivity-section .tool-icon-container { background-color: #34495E; }
+        #encoders-decoders-section .tool-icon-container { background-color: #E67E22; }
+        #design-section .tool-icon-container { background-color: #1ABC9C; }
+        #calculators-section .tool-icon-container { background-color: #3498DB; }
+        .tool-icon-container span { color: #fff; }
+
+        /* --- Modals --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: var(--light-card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        body.dark-mode .modal-content {
+            background-color: var(--dark-card-bg);
+            color: var(--dark-text-color);
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .nav-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .search-bar input {
+                width: 100%;
+            }
+            .nav-controls {
+                width: 100%;
+                justify-content: space-around;
+            }
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-bar">
+        <a href="#" class="nav-logo">Fixly.io</a>
+        <div class="nav-controls">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search tools...">
+                <span class="material-icons">search</span>
+            </div>
+            <span id="mode-toggle" class="material-icons theme-toggle">dark_mode</span>
+            <a href="#" class="buy-coffee-btn">Buy Me a Coffee</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <h1 class="hero-title">Free Online Tools</h1>
+        <p class="hero-subtitle">Boost productivity and simplify your workflow with our powerful toolkit.</p>
+    </section>
+
+    <main class="container">
+
+        <section id="pdf-tools-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">description</span> PDF</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="Camera to PDF">
+                        <div class="tool-icon-container">📸</div>
+                        <h3>Camera to PDF</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Edit PDF">
+                        <div class="tool-icon-container">✏️</div>
+                        <h3>Edit PDF</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Merge PDF">
+                        <div class="tool-icon-container">🔗</div>
+                        <h3>Merge PDF</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Compress PDF">
+                        <div class="tool-icon-container">🗜️</div>
+                        <h3>Compress PDF</h3>
+                    </div>
+                    <div class="tool-card" data-tool="URL to PDF">
+                        <div class="tool-icon-container">🌐</div>
+                        <h3>URL to PDF</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Split PDF">
+                        <div class="tool-icon-container">✂️</div>
+                        <h3>Split PDF</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Protect PDF">
+                        <div class="tool-icon-container">🔒</div>
+                        <h3>Protect PDF</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Unlock PDF">
+                        <div class="tool-icon-container">🔓</div>
+                        <h3>Unlock PDF</h3>
+                    </div>
+                    <div class="tool-card" data-tool="PDF to JPG">
+                        <div class="tool-icon-container">🖼️</div>
+                        <h3>PDF to JPG</h3>
+                    </div>
+                    <div class="tool-card" data-tool="View PDF">
+                        <div class="tool-icon-container">👀</div>
+                        <h3>View PDF</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="converters-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">sync</span> Converters</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="Base Converter">
+                        <div class="tool-icon-container">🔢</div>
+                        <h3>Base Converter</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Unit Converter">
+                        <div class="tool-icon-container">📏</div>
+                        <h3>Unit Converter</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Excel to PDF">
+                        <div class="tool-icon-container">📊</div>
+                        <h3>Excel to PDF</h3>
+                    </div>
+                    <div class="tool-card" data-tool="JSON to YAML">
+                        <div class="tool-icon-container">↔️</div>
+                        <h3>JSON to YAML</h3>
+                    </div>
+                    <div class="tool-card" data-tool="YAML to JSON">
+                        <div class="tool-icon-container">↔️</div>
+                        <h3>YAML to JSON</h3>
+                    </div>
+                    <div class="tool-card" data-tool="JSON to XML">
+                        <div class="tool-icon-container">↔️</div>
+                        <h3>JSON to XML</h3>
+                    </div>
+                     <div class="tool-card" data-tool="XML to CSV">
+                        <div class="tool-icon-container">📉</div>
+                        <h3>XML to CSV</h3>
+                    </div>
+                    <div class="tool-card" data-tool="CSV to XML">
+                        <div class="tool-icon-container">↔️</div>
+                        <h3>CSV to XML</h3>
+                    </div>
+                    <div class="tool-card" data-tool="ASCII Hex">
+                        <div class="tool-icon-container">🔢</div>
+                        <h3>ASCII Hex</h3>
+                    </div>
+                     <div class="tool-card" data-tool="Date Converter">
+                        <div class="tool-icon-container">📅</div>
+                        <h3>Date Converter</h3>
+                    </div>
+                    <div class="tool-card" data-tool="JDE Julian Converter">
+                        <div class="tool-icon-container">📆</div>
+                        <h3>JDE Julian Converter</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Epoch Time Converter">
+                        <div class="tool-icon-container">⏱️</div>
+                        <h3>Epoch Time Converter</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="formatters-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">format_align_left</span> Formatters</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="XML Formatter">
+                        <div class="tool-icon-container">📁</div>
+                        <h3>XML Formatter</h3>
+                    </div>
+                    <div class="tool-card" data-tool="JSON Formatter">
+                        <div class="tool-icon-container">📋</div>
+                        <h3>JSON Formatter</h3>
+                    </div>
+                    <div class="tool-card" data-tool="SQL Formatter">
+                        <div class="tool-icon-container">💾</div>
+                        <h3>SQL Formatter</h3>
+                    </div>
+                     <div class="tool-card" data-tool="HTML Formatter">
+                        <div class="tool-icon-container">🌐</div>
+                        <h3>HTML Formatter</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="validators-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">check_circle</span> Validators</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="XML XSD Validator">
+                        <div class="tool-icon-container">✔️</div>
+                        <h3>XML XSD Validator</h3>
+                    </div>
+                    <div class="tool-card" data-tool="HTML Validator">
+                        <div class="tool-icon-container">🔍</div>
+                        <h3>HTML Validator</h3>
+                    </div>
+                    <div class="tool-card" data-tool="JSON Validator">
+                        <div class="tool-icon-container">{}</div>
+                        <h3>JSON Validator</h3>
+                    </div>
+                    <div class="tool-card" data-tool="YAML Validator">
+                        <div class="tool-icon-container">🧾</div>
+                        <h3>YAML Validator</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="web-seo-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">link</span> Web & SEO</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                     <div class="tool-card" data-tool="Broken Link Checker">
+                        <div class="tool-icon-container">🔗</div>
+                        <h3>Broken Link Checker</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Meta Tag Generator">
+                        <div class="tool-icon-container">🏷️</div>
+                        <h3>Meta Tag Generator</h3>
+                    </div>
+                    <div class="tool-card" data-tool="QR Code Generator">
+                        <div class="tool-icon-container">📱</div>
+                        <h3>QR Code Generator</h3>
+                    </div>
+                    <div class="tool-card" data-tool="URL Slug Generator">
+                        <div class="tool-icon-container">🔤</div>
+                        <h3>URL Slug Generator</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="productivity-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">work</span> Productivity</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="Password Checker">
+                        <div class="tool-icon-container">🔐</div>
+                        <h3>Password Checker</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Todo List">
+                        <div class="tool-icon-container">✅</div>
+                        <h3>Todo List</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Pomodoro Timer">
+                        <div class="tool-icon-container">⏲️</div>
+                        <h3>Pomodoro Timer</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Split EXCEL">
+                        <div class="tool-icon-container">✂️</div>
+                        <h3>Split EXCEL</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section id="encoders-decoders-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">code</span> Encoders / Decoders</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="Base64 Encoder Decoder">
+                        <div class="tool-icon-container">🔢</div>
+                        <h3>Base64 Encoder Decoder</h3>
+                    </div>
+                    <div class="tool-card" data-tool="JWT Decoder">
+                        <div class="tool-icon-container">🔑</div>
+                        <h3>JWT Decoder</h3>
+                    </div>
+                    <div class="tool-card" data-tool="URL Encoder Decoder">
+                        <div class="tool-icon-container">🔗</div>
+                        <h3>URL Encoder Decoder</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="design-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">design_services</span> Design</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="ASCII Art Generator">
+                        <div class="tool-icon-container">🎨</div>
+                        <h3>ASCII Art Generator</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Simple Logo Maker">
+                        <div class="tool-icon-container">🖌️</div>
+                        <h3>Simple Logo Maker</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Color Picker">
+                        <div class="tool-icon-container">🎨</div>
+                        <h3>Color Picker</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section id="calculators-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">calculate</span> Calculators</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="Steps to Calories">
+                        <div class="tool-icon-container">👣</div>
+                        <h3>Steps to Calories</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Mortgage Calculator">
+                        <div class="tool-icon-container">🏠</div>
+                        <h3>Mortgage Calculator</h3>
+                    </div>
+                    <div class="tool-card" data-tool="Percentage Calculator">
+                        <div class="tool-icon-container">%</div>
+                        <h3>Percentage Calculator</h3>
+                    </div>
+                    <div class="tool-card" data-tool="AB Test Calculator">
+                        <div class="tool-icon-container">📊</div>
+                        <h3>AB Test Calculator</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="useful-links-section" class="tool-section">
+            <div class="tools-heading">
+                <h2><span class="material-icons">public</span> Useful Links</h2>
+            </div>
+            <div class="tool-container">
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="LibreOffice">
+                        <div class="tool-icon-container">📝</div>
+                        <h3>LibreOffice</h3>
+                    </div>
+                    <div class="tool-card" data-tool="AppFlowy">
+                        <div class="tool-icon-container">✨</div>
+                        <h3>AppFlowy</h3>
+                    </div>
+                    <div class="tool-card" data-tool="ERPNext">
+                        <div class="tool-icon-container">💼</div>
+                        <h3>ERPNext</h3>
+                    </div>
+                    <div class="tool-card" data-tool="NocoDB">
+                        <div class="tool
